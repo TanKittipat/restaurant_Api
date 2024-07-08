@@ -1,0 +1,16 @@
+{
+  "name": "restaurant_api",
+  "version": "1.0.0",
+  "description": "This is a RESTful api for a Grab restaurant project.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kittipat Choowongwan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
