@@ -35,3 +35,18 @@ exports.create = async (req, res) => {
       });
   });
 };
+
+// Get all restaurant
+exports.getAll = async (req, res) => {
+  await Restaurant.findAll()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message:
+          error.message ||
+          "Something error occurred while creating the restaurant!",
+      });
+    });
+};

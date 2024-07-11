@@ -6,4 +6,7 @@ const restaurantController = require("../controllers/restaurant.controller");
 // POST http://localhost:5000/api/v1/restaurants/
 router.post("/", restaurantController.create);
 
+// Get all restaurant Router
+router.get("/", restaurantController.getAll);
+
 module.exports = router;
