@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Use router
-app.use("/api/vi/restaurants", restaurantRouter);
+app.use("/api/v1/restaurants", restaurantRouter);
 
 app.get("/", (req, res) => {
   res.send("<h1>Hello Restaurant API</h1>");
