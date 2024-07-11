@@ -10,6 +10,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 });
 
 testConnection = async () => {
+  // Design Pattern : Factory method
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
