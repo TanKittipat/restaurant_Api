@@ -50,3 +50,55 @@ exports.getAll = async (req, res) => {
       });
     });
 };
+
+// Get by ID restaurant
+exports.getById = async (req, res) => {
+  const id = req.params.id;
+  await Restaurant.findByPk(id)
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: "No found Restaurant with ID : " + id,
+        });
+      } else {
+        res.send(data);
+      }
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message:
+          error.message ||
+          "Something error occurred while creating the restaurant!",
+      });
+    });
+};
+
+// Update restaurant
+// update จะ return จำนวนแถวที่แก้ไข
+exports.update = async (req, res) => {
+  const id = req.params.id;
+  await Restaurant.update(req.body, { where: { id: id } }).then((num) => {
+    if (num == 1) {
+      res.send({ message: "Restaurant was update successfully!" });
+    } else {
+      res.send({
+        message:
+          "Can't update restaurant with ID : " +
+          id +
+          ". Maybe restaurant wasn't found or req.body is empty!",
+      });
+    }
+  });
+};
+
+// Delete restaurant
+exports.delete = async (req, res) => {
+  const id = req.params.id;
+  await Restaurant.destroy({ where: { id: id } }).then((num) => {
+    if (num == 1) {
+      res.send({ message: "Restaurant was delete successfully!" });
+    } else {
+      res.send({ message: "Can't delete restaurant ID : " + id + "." });
+    }
+  });
+};

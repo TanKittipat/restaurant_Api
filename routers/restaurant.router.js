@@ -9,4 +9,13 @@ router.post("/", restaurantController.create);
 // Get all restaurant Router
 router.get("/", restaurantController.getAll);
 
+// Get by ID restaurant Router
+router.get("/:id", restaurantController.getById);
+
+// Update restaurant Router
+router.put("/:id", restaurantController.update);
+
+// Update restaurant Router
+router.delete("/:id", restaurantController.delete);
+
 module.exports = router;
