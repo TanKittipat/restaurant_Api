@@ -79,7 +79,7 @@ exports.update = async (req, res) => {
   const id = req.params.id;
   await Restaurant.update(req.body, { where: { id: id } }).then((num) => {
     if (num == 1) {
-      res.send({ message: "Restaurant was update successfully!" });
+      res.send({ message: "Restaurant was updated successfully!" });
     } else {
       res.send({
         message:
@@ -96,7 +96,7 @@ exports.delete = async (req, res) => {
   const id = req.params.id;
   await Restaurant.destroy({ where: { id: id } }).then((num) => {
     if (num == 1) {
-      res.send({ message: "Restaurant was delete successfully!" });
+      res.send({ message: "Restaurant was deleted successfully!" });
     } else {
       res.send({ message: "Can't delete restaurant ID : " + id + "." });
     }

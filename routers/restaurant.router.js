@@ -15,7 +15,7 @@ router.get("/:id", restaurantController.getById);
 // Update restaurant Router
 router.put("/:id", restaurantController.update);
 
-// Update restaurant Router
+// Delete restaurant Router
 router.delete("/:id", restaurantController.delete);
 
 module.exports = router;
