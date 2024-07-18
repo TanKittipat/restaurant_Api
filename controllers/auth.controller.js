@@ -13,7 +13,7 @@ exports.signup = async (req, res) => {
   const { username, email, userPassword } = req.body;
   if (!username || !email || !userPassword) {
     res.status(400).send({
-      message: "Please provide all required fields",
+      message: "Please provide all required fields!",
     });
     return;
   }
@@ -42,6 +42,56 @@ exports.signup = async (req, res) => {
           res.send({ message: "User registered successfully!" });
         });
       }
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message:
+          error.message ||
+          "Something error occured while registering a new user!",
+      });
+    });
+};
+
+// Sign in User
+exports.signin = async (req, res) => {
+  const { username, userPassword } = req.body;
+  if (!username || !userPassword) {
+    res.status(400).send({ message: "Please provide all required fields!" });
+    return;
+  }
+  await User.findOne({ where: { username: username } })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ message: "User not found!" });
+      }
+      const passwordIsValid = bcrypt.compareSync(
+        userPassword,
+        user.userPassword
+      );
+      if (!passwordIsValid) {
+        // http code 401 = unAutherized
+        return res.status(401).send({
+          accessToken: null,
+          message: "Invalid password!",
+        });
+      }
+      // expiresIn 86400 = 1d
+      const token = jwt.sign({ id: user.id }, config.secret, {
+        expiresIn: 86400,
+      });
+      const authorities = [];
+      user.getRoles().then((roles) => {
+        for (let i = 0; i < roles.length; i++) {
+          authorities.push("ROLES_" + roles[i].roleName.toUpperCase());
+        }
+        res.status(200).send({
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          roles: authorities,
+          accessToken: token,
+        });
+      });
     })
     .catch((error) => {
       res.status(500).send({
