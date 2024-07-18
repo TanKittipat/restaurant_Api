@@ -50,3 +50,11 @@ checkRolesExisted = async (req, res, next) => {
     next();
   }
 };
+
+// verify sign-up
+const verifySignUp = {
+  checkRolesExisted,
+  checkDuplicateUsernameOrEmail,
+};
+
+module.exports = verifySignUp;
