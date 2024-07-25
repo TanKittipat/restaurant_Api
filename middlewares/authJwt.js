@@ -1,13 +1,13 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config");
 const db = require("../models");
-const req = require("express/lib/request");
-const res = require("express/lib/response");
+// const req = require("express/lib/request");
+// const res = require("express/lib/response");
 const User = db.User;
 
 // verify token
 verifyToken = (req, res, next) => {
-  let token = req.header["x-access-token"];
+  let token = req.headers["x-access-token"];
   //   1st verify
   if (!token) {
     return res.status(403).send({
